@@ -1,0 +1,40 @@
+.fixed_header {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    height: 100px;
+}
+
+h1 {
+    padding-left: 10px;
+    font-size: 30px;
+}
+
+span {
+    color: rgb(241, 63, 218);
+    font-style: italic;
+    font-size: 20px;
+  }
+  
+
+.searchBar {
+    padding: 5px;
+    background-color: rgb(209, 214, 214);
+}
+
+.searchBar input {
+    height: 20px;
+}
+
+.searchBarContainer {
+    display: inline-block;
+    padding-left: 30px;
+}
+
+button {
+    height: 25px;
+    width: 100px;
+}
