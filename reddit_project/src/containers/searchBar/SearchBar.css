@@ -1,0 +1,20 @@
+
+#search {
+    width: 100%;
+    padding: 9px 25px 9px 40px;
+    border-radius: 16.5px;
+    border: solid 1px #141c3a;
+    background-color: #ffffff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+#searchBarContainer {
+    display: inline-block;
+    padding-left: 30px;
+}
+
+#search_button {
+    height: 25px;
+    width: 100px;
+}

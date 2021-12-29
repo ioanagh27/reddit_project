@@ -1,11 +1,12 @@
-.fixed_header {
+.header {
     display: flex;
     flex-direction:row;
     align-items: center;
-    position: fixed;
+    justify-content: space-between;
     width: 100%;
     background-color: white;
     height: 100px;
+    
 }
 
 h1 {
@@ -19,22 +20,31 @@ span {
     font-size: 20px;
   }
   
-
-.searchBar {
-    padding: 5px;
-    background-color: rgb(209, 214, 214);
-}
-
-.searchBar input {
-    height: 20px;
-}
-
 .searchBarContainer {
-    display: inline-block;
-    padding-left: 30px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgb(185, 185, 185);
+}
+
+form {
+    display: flex;
+    justify-content: center;
+
+}
+
+input {
+    border: none;
+    padding-left: 10px;
+    outline: none;
+    color: rgb(44, 44, 250);
 }
 
 button {
-    height: 25px;
-    width: 100px;
+     padding: 0px 8px;   
+     height: 28px;
+     background-color: white;
+     border: none;
+     color: rgb(0, 0, 0);
+     font-size: 20px;
 }
+

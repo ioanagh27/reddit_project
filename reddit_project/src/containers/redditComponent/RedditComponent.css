@@ -1,19 +1,18 @@
+.redditsContainer {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+ }
+
 .card {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
     border: 1px solid grey;
     width: 66%;
     background-color: white;
   }
 
-  .redditsContainer {
-      padding: 20px;
-  }
-  
   .card:hover {
-    background-color: rgb(248, 185, 216);
+    background-color: #94e1f7;
+    transform: scale(1.05);
   }
 
   .title {

@@ -1,19 +1,31 @@
-import { useDispatch, useSelector } from "react-redux";
-import { changeActiveReddit } from "./searchBarSlice";
+/*import  React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSearch } from './searchBarSlice';
 
 export const SearchBar = () => {
-    const searchValue = useSelector(state => state.search);
     const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const onTextChange = (e) => {
-        dispatch(changeActiveReddit(e.target.value))
-    }
+    const sidebar = document.getElementById('sidebar');
+
+    const handleTextChange = ({target}) => {
+        setSearchTerm(target.value)
+    };
+
+    const submit = (e) => {
+        e.preventDefault();
+        dispatch(setSearch(searchTerm));
+        setSearchTerm('');
+        if (sidebar.style.display === 'block'){
+            sidebar.style.display = 'none'
+        }
+    };
 
     return (
-        <input 
-        className="searchBar"
-        value={searchValue}
-        placeholder="Search..."
-        onChange={onTextChange} />
+        <form id="search-bar">
+            <input type="text"  placeholder="Search for something?" value={searchTerm} id="search-input" onChange={handleTextChange} />
+            <button id="search-button" onClick={submit}>Search!</button>
+        </form>
     )
 }
+*/

@@ -13,10 +13,3 @@ export const selectedReddit = (reddit) => {
         payload: reddit
     }
 }
-
-export const setSearchTerm = (reddit) => {
-    return {
-        type: ActionTypes.SET_SEARCH_TERM,
-        payload: reddit
-    }
-}

@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import Header from './containers/header/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import RedditList from './containers/RedditList';
+import RedditList from './containers/redditList/RedditList';
 import RedditDetail from './containers/RedditDetail';
 
 function App() {
