@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import './RedditComponent.css';
 import moment from "moment";
-import Comments from "../comments/Comments";
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'; 
+import {faComment} from '@fortawesome/free-solid-svg-icons';
 
 export const RedditComponent = () => {
+    const dispatch = useDispatch();
     const reddits = useSelector((state) => state.allReddits.reddits);
     const renderReddits = reddits.map((reddit) => {
     const {
@@ -18,6 +19,7 @@ export const RedditComponent = () => {
         created_utc
     } = reddit;
     
+
     return (
         <div className="redditsContainer">
             <div className="card">
@@ -27,13 +29,16 @@ export const RedditComponent = () => {
                 <div className="title">
                     {title} 
                 </div>
-                <div className="comments">
-
-                </div>
                 <div className="media"> 
                     <p><span>{subreddit_name_prefixed} </span>Posted by: {author} {moment.unix(reddit.created_utc).fromNow()}</p>
                     <img src={url} alt=''/> 
-                </div>        
+                </div>  
+                <hr/>
+                <div className="comments">
+                    <button>
+                        <FontAwesomeIcon icon={faComment} />
+                    </button>
+                </div>      
             </div>
         </div>
      )})
