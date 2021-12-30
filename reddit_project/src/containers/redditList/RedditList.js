@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { RedditComponent } from '../redditComponent/RedditComponent';
-import {  setReddits } from "../../redux/actions/redditActions";
+import {  setReddits } from "../../store/redditSlice";
 import './RedditList.css';
 
 const RedditList = () => {
