@@ -1,16 +1,19 @@
-.redditsContainer {
-  padding: 20px;
-  display: flex;
-  justify-content: center;
- }
 
 .card {
-    border: 1px solid grey;
-    width: 66%;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-right: 1px solid grey;
+    width: 60%;
     background-color: white;
   }
 
-  .card:hover {
+  .flex {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .redditsContainer:hover {
     background-color: #94e1f7;
     transform: scale(1.05);
   }
@@ -26,7 +29,15 @@
   }
 
   .likes {
-      display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-left: 1px solid grey;
+    padding: 30px 20px 30px 5px;
 
   }
 
@@ -47,7 +58,7 @@ hr {
     font-size: 12px;
     font-style: italic;
     color: white;
-    background: linear-gradient(to right, #61dafb, rgb(241, 63, 218));
+    background: linear-gradient(to right, #61dafb, rgb(116, 6, 106));
     border: 0.5px solid grey;
     border-radius: 20px;
   }

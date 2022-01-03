@@ -1,12 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { getComments } from '../api/apis';
+import { getComments, getSubredditPosts } from '../api/apis';
 
 const initialState = {
     reddits: [],
     error: false,
     isLoading: false,
     searchTerm: '',
-    selectedSubreddit: '/r/'
+    selectedSubreddit: '/r/pics/'
 }
 
 const redditSlice = createSlice({
@@ -42,6 +42,10 @@ const redditSlice = createSlice({
         loadingCommentsFailed(state, action) {
             state.reddits[action.payload].isloadingComments = false;
             state.reddits[action.payload].error = true;
+        },
+        setSelectedSubreddit (state, action) {
+            state.selectedSubreddit = action.payload;
+            state.searchTerm = '';
         }
 });
 
@@ -53,10 +57,29 @@ export const {
     setSearchTerm,
     loadingComments,
     loadingCommentsSuccess,
-    loadingCommentsFailed
+    loadingCommentsFailed,
+    setSelectedSubreddit
 } = redditSlice.actions;
 
 export default redditSlice.reducer;
+
+export const fetchPosts = (subreddit) => async (dispatch) => {
+    try {
+        dispatch(loadingReddits());
+        const posts = await getSubredditPosts(subreddit);
+
+        const postsWithComments = posts.map((post) => ({
+            ...post,
+            visibleComments: false,
+            comments: [],
+            loadingComments: false,
+            loadingCommentsFailed: false
+        }));
+        dispatch(loadingRedditsSuccess(postsWithComments));
+    } catch (error) {
+        dispatch(loadingRedditsFailed)
+    }
+}
 
 export const fetchComments = (index, permalink) => async (dispatch) => {
     try {
@@ -66,5 +89,9 @@ export const fetchComments = (index, permalink) => async (dispatch) => {
     } catch (error) {
         dispatch(loadingCommentsFailed(index));
     }
-
 }
+
+const selectPosts = (state) => state.reddit.posts;
+const selectSearchTerm = (state) => state.reddit.searchTerm;
+export const selectSelectedSubreddit = (state) => state.reddit.selectedSubreddit;
+
