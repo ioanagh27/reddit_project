@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RedditComponent } from '../redditComponent/RedditComponent';
 import {  setReddits } from "../../store/redditSlice";
 import './RedditList.css';
+import Subreddits from "../subredditComponent/Subreddit";
 
 const RedditList = () => {
     const reddits = useSelector((state) => state);
