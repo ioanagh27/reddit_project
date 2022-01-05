@@ -1,17 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getSubreddits } from "../api/apis";
 
-const initialState = {
-    subreddits: [],
-    isLoading: false,
-    error: false
-};
 
 const subredditSlice = createSlice({
     name: 'subreddits',
-    initialState: initialState,
+    initialState: {
+        subreddits: [],
+        homepage: '/r/Home'
+    },
     reducers: {
-        loadingSubreddits (state) {
+       /* loadingSubreddits (state) {
             state.isLoading = true;
             state.error = false;
         },
@@ -22,20 +20,25 @@ const subredditSlice = createSlice({
         loadingSubredditsFailed (state) {
             state.isLoading = false;
             state.error = true;
+        }*/
+        addSubreddit: (state, action) => {
+            state.subreddits.push(action.payload);
+        },
+        changeSubreddit: (state, action) => {
+            state.homepage = action.payload;
         }
+    
 
     }
 })
 
 export const {
-    loadingSubreddits,
-    loadingSubredditsSuccess,
-    loadingSubredditsFailed
+   addSubreddit, changeSubreddit
 } = subredditSlice.actions;
 
 export default subredditSlice.reducer;
 
-export const fetchSubreddits = () => async (dispatch) => {
+/*export const fetchSubreddits = () => async (dispatch) => {
     try {
         dispatch(loadingSubreddits());
         const subreddits = await getSubreddits();
@@ -43,6 +46,5 @@ export const fetchSubreddits = () => async (dispatch) => {
     } catch (error) {
         dispatch(loadingSubredditsFailed);
     }
-};
+}; */
 
-export const selectSubreddits = (state) => state.subreddits.subreddits;

@@ -1,33 +1,41 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { fetchSubreddits, selectSubreddits } from "../../store/subredditSlice";
-import { setSelectedSubreddit, selectSelectedSubreddit } from "../../store/redditSlice";      
+import { addSubreddit, changeSubreddit} from "../../store/subredditSlice";
+import { Link } from "react-router-dom";
+import { getSubreddits } from "../../api/apis";
+import './Subreddit.css';
 
-const Subreddits = () => {
+
+export const Subreddits = (props) => {
+    const subreddits = useSelector(state => state.subreddits.subreddits);
     const dispatch = useDispatch();
-    const subreddits = useSelector(selectSubreddits);
-    const selectedSubreddit = useSelector(selectSelectedSubreddit);
 
-    useEffect(() => {
-        dispatch(fetchSubreddits());
-    }, [dispatch]);
+    useEffect(() => getSubreddits().then(json => {
+        json.forEach(item => dispatch(
+            addSubreddit({
+                name: item.display_name,
+                url: item.url,
+                id: item.id,
+                icon: item.community_icon.split('?')[0]
+            })
+        ));
+    }), [dispatch]);
 
     return (
-        <div className="subreddits_section">
-            <h2>Subreddits</h2>
-            <ul>
-                {subreddits.map(subreddit =>
-                        <li key={subreddit.id}
-                        onClick={() => {
-                            dispatch(setSelectedSubreddit(subreddit.url));
-                        }}>
-                            {subreddit.display_name}
+        <section>
+            <ul className='list'>
+                {subreddits.map(item => (
+                    <Link to='/' key={item.id} className="links">
+                        <li
+                        onClick={() => dispatch(changeSubreddit(item.url))}>
+                            <img src={item.icon} alt={''}/>
+                            {item.name}
                         </li>
-                )}
+                    </Link>
+                ))}
             </ul>
-        </div>
+        </section>
     )
 }
 
 export default Subreddits;
-

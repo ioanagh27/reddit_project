@@ -1,6 +1,6 @@
 .App {
-  text-align: center;
-
+  text-align: center;  
+  
   }
 
 .App-logo {
@@ -9,4 +9,7 @@
 
 main {
   background-color: lightgray;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
 }
