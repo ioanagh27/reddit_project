@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { addSubreddit, changeSubreddit} from "../../store/subredditSlice";
+import { addSubreddit, changeSubreddit} from "./subredditSlice";
 import { Link } from "react-router-dom";
 import { getSubreddits } from "../../api/apis";
 import './Subreddit.css';
@@ -8,6 +8,7 @@ import './Subreddit.css';
 
 export const Subreddits = (props) => {
     const subreddits = useSelector(state => state.subreddits.subreddits);
+    const activeSub = useSelector(state => state.subreddits.activeSubreddit);
     const dispatch = useDispatch();
 
     useEffect(() => getSubreddits().then(json => {
@@ -25,10 +26,11 @@ export const Subreddits = (props) => {
         <section>
             <ul className='list'>
                 {subreddits.map(item => (
-                    <Link to='/' key={item.id} className="links">
+                <Link to='/' className="links">
                         <li
-                        onClick={() => dispatch(changeSubreddit(item.url))}>
-                            <img src={item.icon} alt={''}/>
+                        onClick={() => dispatch(changeSubreddit(item.url))}
+                        className={activeSub === item.url}>
+                            <span><img src={item.icon} alt={''}/></span>
                             {item.name}
                         </li>
                     </Link>

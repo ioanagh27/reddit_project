@@ -1,15 +1,12 @@
-/*
-
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const searchBarSlice = createSlice({
-    name: 'searchTerm',
+    name: 'search',
     initialState: '',
     reducers: {
-        setSearch: (state, action) => (state = action.payload),
+        searchReddit: (state, action) => state = action.payload
     }
 });
 
-export const { setSearch } = searchBarSlice.actions;
+export const {searchReddit} = searchBarSlice.actions;
 export default searchBarSlice.reducer;
-*/

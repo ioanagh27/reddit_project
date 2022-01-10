@@ -14,9 +14,22 @@
 .links li img {
     width: 30px;
     height: auto;
+    padding: 5px;
+    }
+
+span {
+    height: 50px;
+    width: 70px;
 }
 
 .links li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     border: 1px solid grey;
     padding: 10px;
+    background: linear-gradient(to right, #61dafb, rgb(116, 6, 106));
+    font-size: 18px;
+    color: white;
+    text-align: center;
 }
