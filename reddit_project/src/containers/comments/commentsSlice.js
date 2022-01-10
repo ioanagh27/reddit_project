@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+/*import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const loadComments = createAsyncThunk('comments/loadComments', async ( {subreddit, id} ) => {
     console.log('id= ' + id);
@@ -41,3 +41,4 @@ export const commentsSlice = createSlice({
 });
 
 export default commentsSlice.reducer;
+*/

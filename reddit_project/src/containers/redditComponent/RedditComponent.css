@@ -3,7 +3,7 @@
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
     border-right: 1px solid grey;
-    width: 60%;
+    width: 66%;
     background-color: white;
   }
 
@@ -15,12 +15,14 @@
 
   .redditsContainer:hover {
     background-color: #94e1f7;
-    transform: scale(1.05);
+    border: 1px solid grey;
+    border-radius: 10px;
   }
 
   .title {
       font-weight: bold;
       font-size: 20px;
+      padding: 20px;
   }
 
   img {
@@ -61,4 +63,14 @@ hr {
     background: linear-gradient(to right, #61dafb, rgb(116, 6, 106));
     border: 0.5px solid grey;
     border-radius: 20px;
+  }
+
+  .time {
+    color: #ce6402;
+    font-style: normal;
+    font-size: 16px;
+  }
+
+  p span {
+    padding: 10px;
   }
