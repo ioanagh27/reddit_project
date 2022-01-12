@@ -11,14 +11,13 @@ import UserReplies from "../comments/Comments";
 
 export const RedditComponent = () => {
     const reddits = useSelector((state) => state.allReddits.reddits);
-    const [replies, setReplies] = useState([])
+    const [replies, setReplies] = useState([]);
     const renderReddits = reddits.map((reddit) => {
     const {
         id,
         title, 
         ups,
         url, 
-        media,
         author, 
         num_comments,
         coms,
@@ -50,7 +49,7 @@ export const RedditComponent = () => {
                 <div className="card">              
                     <div className="title">
                         {title}
-                    </div>                
+                    </div>               
                     <div className="media"> 
                         <img src={url} alt=''/>                           
                     </div>              

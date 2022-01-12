@@ -4,6 +4,9 @@ import Header from './containers/header/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import RedditList from './containers/redditList/RedditList';
 import Subreddits from './containers/subredditComponent/Subreddit';
+import { getSubredditPosts } from './api/apis';
+
+
 
 function App() {
   return (

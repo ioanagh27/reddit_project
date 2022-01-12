@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { changeRedditId } from "../individualReddit/individualRedditSlice";
 import { RedditComponent } from '../redditComponent/RedditComponent';
 import {  setReddits } from "../redditComponent/redditSlice";
-import { SubredditMenu } from "../subredditMenu/subredditMenu";
+import { SubredditMenu } from "../subredditMenu/SubredditMenu";
 import './RedditList.css';
 
 const RedditList = () => {
@@ -25,8 +25,7 @@ const RedditList = () => {
    
 
     return (
-        <div>   
-            <SubredditMenu/>         
+        <div>           
             <RedditComponent/>
         </div>
     );
