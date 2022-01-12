@@ -4,6 +4,7 @@ import { addSubreddit, changeSubreddit} from "./subredditSlice";
 import { Link } from "react-router-dom";
 import { getSubreddits } from "../../api/apis";
 import './Subreddit.css';
+import { SubredditMenu } from "../subredditMenu/SubredditMenu";
 
 
 export const Subreddits = (props) => {
@@ -24,6 +25,8 @@ export const Subreddits = (props) => {
 
     return (
         <section>
+            <SubredditMenu/> 
+
             <ul className='list'>
                 {subreddits.map(item => (
                 <Link to='/' className="links">
