@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import { changeRedditId } from "../individualReddit/individualRedditSlice";
 import { RedditComponent } from '../redditComponent/RedditComponent';
 import {  setReddits } from "../redditComponent/redditSlice";
 import { SubredditMenu } from "../subredditMenu/SubredditMenu";
