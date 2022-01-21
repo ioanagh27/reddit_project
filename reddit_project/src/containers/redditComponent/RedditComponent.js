@@ -62,7 +62,7 @@ const Post = ({post, onToggleComments}) => {
                             <p><span>{post.subreddit_name_prefixed}</span>Posted by: {post.author} <span className="time">{time}</span></p>
                             <button onClick={() => onToggleComments(post.permalink)}>
                                 <FontAwesomeIcon icon={faComment}/>
-                                Comments: {post.comments}
+                                Comments:
                                 {post.num_comments}
                             </button>
                             

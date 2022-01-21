@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../redditComponent/RedditComponent";
-import { fetchComments, selectError, selectIsLoading, loadingPostsSuccess, selectSearchTerm, setSearchTerm, selectSelectSubreddit, selectPostsIncludingSearchTerm, fetchPosts } from "../redditComponent/redditSlice";
+import { fetchComments, selectError, selectIsLoading, selectSearchTerm, setSearchTerm, selectSelectSubreddit, selectPostsIncludingSearchTerm, fetchPosts } from "../redditComponent/redditSlice";
+import './mainPage.css';
 
 export const MainPage = () => {
     const dispatch = useDispatch();
@@ -43,9 +44,12 @@ export const MainPage = () => {
 
      if (posts.length === 0 && searchTerm !== '') {
          return (
-             <div>
-                <h2>No posts found</h2>
-                <button type='button' onClick={dispatch(setSearchTerm(''))}>
+             <div className="error">
+                <h2 className="alert">No posts found!</h2>
+                <button 
+                type='button'
+                className="return"
+                onClick={() => dispatch(setSearchTerm(''))}>
                     Go home
                 </button>
              </div>

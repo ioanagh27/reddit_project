@@ -1,0 +1,19 @@
+.alert {
+    color: orangered;
+    font-size: 30px;
+}
+
+.return {
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    background: linear-gradient(to bottom, #61dafb, rgb(116, 6, 106));
+    color: white;
+    border: 0.5px solid orangered;
+    border-radius: 10px;
+}
+
+.error {
+   margin: 15% 30% 30% 30%;
+}

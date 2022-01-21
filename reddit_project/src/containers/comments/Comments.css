@@ -1,17 +1,27 @@
-.replies {
+.comment_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     padding: 20px;
     border: 1px solid grey;
     border-radius: 10px;
     background-color: rgb(218, 213, 213);
     margin: 20px;
+    text-align: left;
 }
 
 .user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     text-align: left;
     font-weight: bold;
     color: rgb(116, 6, 106);
 }
 
-.coms {
-    text-align: left;
+.comment_time {
+    color: #cc5757;
+    font-size: 0.9rem;
+    font-style: italic;
+    
 }
