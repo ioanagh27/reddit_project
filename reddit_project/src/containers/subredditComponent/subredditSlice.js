@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+/*import { createSlice } from "@reduxjs/toolkit";
 import { getSubreddits } from "../../api/apis";
 
 
@@ -23,4 +23,4 @@ export const {
 } = subredditSlice.actions;
 
 export default subredditSlice.reducer;
-
+*/

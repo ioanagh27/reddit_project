@@ -8,6 +8,10 @@
     height: 100px;  
 }
 
+.App-logo {
+    color:#61dafb;
+  }
+
 .link {
     text-decoration: none;
     color: inherit;

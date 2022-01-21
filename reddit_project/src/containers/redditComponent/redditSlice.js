@@ -1,83 +1,122 @@
-import {createSlice} from '@reduxjs/toolkit';
-import { getComments, getSubredditPosts } from '../../api/apis';
+import {createSelector, createSlice} from '@reduxjs/toolkit';
+import { getComments, getSubredditPosts, getSubreddits } from '../../api/apis';
 
-const initialState = {
-    reddits: [],
-    error: false,
-    isLoading: false,
-    searchTerm: '',
-    selectedSubreddit: '/r/pics/'
-}
 
 const redditSlice = createSlice({
     name: 'redditPosts',
-    initialState: initialState,
+    initialState: {
+        posts: [],
+        subreddits: [],
+        error: false,
+        isLoading: false,
+        searchTerm: '',
+        selectedSubreddit: '/r/pics/'
+    },
     reducers: {
-        setReddits(state, action) {
-            state.reddits = action.payload;}
-        },
-        loadingReddits(state) {
+        loadingPosts(state) {
             state.isLoading = true;
             state.error = false;
         },
-        loadingRedditsSuccess(state, action) {
+        loadingPostsSuccess(state, action) {
             state.isLoading = false;
-            state.reddits = action.payload;
+            state.posts= action.payload;
         },
-        loadingRedditsFailed(state) {
+        loadingPostsFailed(state) {
             state.isLoading = false;
             state.error = true;
+        },
+        loadingSubreddits(state) {
+            state.isLoading = true;
+            state.error = false;
+        },
+        loadingSubredditsSuccess(state, action) {
+            state.isLoading = false;
+            state.subreddits = action.payload;
+        },
+        loadingSubredditsFailed(state) {
+            state.isLoading = false;
+            state.error = true;
+        },
+        selectSubreddit (state, action) {
+            state.selectedSubreddit = action.payload;
+            state.searchTerm = '';
         },
         setSearchTerm(state, action) {
             state.searchTerm = action.payload;
         },
         loadingComments(state, action) {
-            state.reddits[action.payload].isloadingComments = true;
-            state.reddits[action.payload].error = false;
+            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
+            if (!state.posts[action.payload].showingComments) {
+                return;
+            }
+            state.posts[action.payload].loadingComments = true;
+            state.posts[action.payload].error = false;
         },
         loadingCommentsSuccess(state, action) {
-            state.reddits[action.payload.index].isloadingComments = false;
-            state.reddits[action.payload.index].comments = action.payload.comments;
+            state.posts[action.payload.index].loadingComments = false;
+            state.posts[action.payload.index].comments = action.payload.comments;
         },
         loadingCommentsFailed(state, action) {
-            state.reddits[action.payload].isloadingComments = false;
-            state.reddits[action.payload].error = true;
+            state.posts[action.payload].loadingComments = false;
+            state.posts[action.payload].error = true;
         },
-        setSelectedSubreddit (state, action) {
-            state.selectedSubreddit = action.payload;
-            state.searchTerm = '';
-        }
-});
+        toggleComments(state, action) {
+            state.posts[action.payload].showingComments = !state.posts[action.payload].showingComments;
+        }        
+}});
 
 export const {
-    setReddits,
-    loadingReddits,
-    loadingRedditsSuccess,
-    loadingRedditsFailed,
+    loadingPosts,
+    loadingPostsSuccess,
+    loadingPostsFailed,
+    loadingSubreddits,
+    loadingSubredditsSuccess,
+    loadingSubredditsFailed,
+    selectSubreddit,
     setSearchTerm,
     loadingComments,
     loadingCommentsSuccess,
     loadingCommentsFailed,
-    setSelectedSubreddit
+    toggleComments
 } = redditSlice.actions;
 
-export default redditSlice.reducer;
+export const selectPosts = (state) => state.redditPosts.posts;
+export const selectSubreddits = (state) => state.redditPosts.subreddits;
+export const selectSearchTerm = (state) => state.redditPosts.searchTerm;
+export const selectSelectSubreddit = (state) => state.redditPosts.selectedSubreddit;
+export const selectIsLoading = (state) => state.isLoading;
+export const selectError = (state) => state.error;
 
-export const fetchPosts = (subreddit) => async (dispatch) => {
+const redditSliceReducer =  redditSlice.reducer;
+
+export default redditSliceReducer;
+
+export const fetchPosts= (subreddit) => async (dispatch) => {
     try {
-        dispatch(loadingReddits());
+        dispatch(loadingPosts());
         const posts = await getSubredditPosts(subreddit);
 
-        const postsWithComments = posts.map((post) => ({
+        const postWithMetadata = posts.map(post => {
+            return {
             ...post,
-            visibleComments: false,
+            showingComments: false,
             comments: [],
             loadingComments: false,
             loadingCommentsFailed: false
-        }));
-        dispatch(loadingRedditsSuccess(postsWithComments));
+        }});
+        dispatch(loadingPostsSuccess(postWithMetadata));
     } catch (error) {
-        dispatch(loadingRedditsFailed)
+        dispatch(loadingPostsFailed());
+    }
+}
+
+export const fetchSubreddits = () => async (dispatch) => {
+    try {
+        dispatch(loadingSubreddits());
+        const subreddits = await getSubreddits();
+        dispatch(loadingSubredditsSuccess(subreddits));
+    } catch (error) {
+        dispatch(loadingSubredditsFailed());
     }
 }
 
@@ -91,6 +130,12 @@ export const fetchComments = (index, permalink) => async (dispatch) => {
     }
 }
 
-const selectPosts = (state) => state.reddit.posts;
-const selectSearchTerm = (state) => state.reddit.searchTerm;
-
+export const selectPostsIncludingSearchTerm = createSelector(
+    [selectPosts, selectSearchTerm],
+    (posts, searchTerm) => {
+        if (searchTerm) {
+            return posts.filter(post => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        }
+        return posts;
+    }
+)

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+/*import { createSlice } from "@reduxjs/toolkit";
 
 export const searchBarSlice = createSlice({
     name: 'search',
@@ -10,3 +10,4 @@ export const searchBarSlice = createSlice({
 
 export const {searchReddit} = searchBarSlice.actions;
 export default searchBarSlice.reducer;
+*/

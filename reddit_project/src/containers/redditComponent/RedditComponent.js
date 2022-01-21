@@ -1,81 +1,77 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import './RedditComponent.css';
 import moment from "moment";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'; 
 import {faComment} from '@fortawesome/free-solid-svg-icons';
 import { faArrowAltCircleUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowAltCircleDown } from "@fortawesome/free-solid-svg-icons";
-import UserReplies from "../comments/Comments";
+import {Comment} from '../comments/Comments.js';
 
 
-export const RedditComponent = () => {
-    const reddits = useSelector((state) => state.allReddits.reddits);
-    const [replies, setReplies] = useState([]);
-    const renderReddits = reddits.map((reddit) => {
-    const {
-        id,
-        title, 
-        ups,
-        url, 
-        author, 
-        num_comments,
-        coms,
-        permalink,
-        comments,
-        subreddit_name_prefixed,
-    } = reddit;
+const Post = ({post, onToggleComments}) => {
 
+    const renderComments = () => {
+        if(post.loadingComments){
+          return (
+            <div>
+              <h2>Loading comments...</h2>
+            </div>
+          )
+        }
+        
+        if(post.error){
+            return (
+                <div>
+                    <h2>Error loading comments</h2>
+                </div>
+            )
+        }
 
-    const getComments = async () => {
-        const response = await fetch(`https://www.reddit.com${permalink}.json`);
-        const data = await response.json();
-        setReplies(data[1].data.children.map(({data}) => data));
+        if(post.showingComments) {
+            return (
+                <div>
+                    {post.comments.map((comment) => (
+            <Comment comment={comment} key={comment.id} />
+          ))}
+                </div>
+            )
+        }
+        return null;
     }
-    const handleClick = () => {
-        getComments();
-    }
+     
 
-    const time = moment.unix(reddit.created_utc).fromNow();
+    const time = moment.unix(post.created_utc).fromNow();
 
     return (
-        <div className="redditsContainer">
-            <div className="flex">
-                <div className="likes">
-                    <FontAwesomeIcon icon={faArrowAltCircleUp} color="#61dafb"/> 
-                    <p>{ups}</p> 
-                    <FontAwesomeIcon icon={faArrowAltCircleDown} color="rgb(116, 6, 106)"/>
-                </div>  
-                <div className="card">              
-                    <div className="title">
-                        {title}
-                    </div>               
-                    <div className="media"> 
-                        <img src={url} alt=''/>                           
-                    </div>              
-                    <hr/>
-                    <div className="comments">
-                        <p><span>{subreddit_name_prefixed}</span>Posted by: {author} <span className="time">{time}</span></p>
-                        <h5><button onClick={handleClick}>
-                            <FontAwesomeIcon icon={faComment}/>
-                            Comments: {comments}
-                            {num_comments}
-                        </button></h5>
-                        <div>
-                            {replies.map(reply => (
-                                <UserReplies 
-                                coms = {reply.body}
-                                key= {reply.id}
-                                userName={reply.author}/>
-                            ))}
-                        </div>
-                    </div>    
-                </div>
-            </div>
-        </div>
-     )})
-    
-        return renderReddits;
+            <div className="redditsContainer">
+                <div className="flex">
+                    <div className="likes">
+                        <FontAwesomeIcon icon={faArrowAltCircleUp} color="#61dafb"/> 
+                        <p>{post.ups}</p> 
+                        <FontAwesomeIcon icon={faArrowAltCircleDown} color="rgb(116, 6, 106)"/>
+                    </div>  
+                    <div className="card">              
+                        <div className="title">
+                            {post.title}
+                        </div>               
+                        <div className="media"> 
+                            <img src={post.url} alt=''/>                      
+                        </div>              
+                        <hr/>
+                        <div className="comments">
+                            <p><span>{post.subreddit_name_prefixed}</span>Posted by: {post.author} <span className="time">{time}</span></p>
+                            <button onClick={() => onToggleComments(post.permalink)}>
+                                <FontAwesomeIcon icon={faComment}/>
+                                Comments: {post.comments}
+                                {post.num_comments}
+                            </button>
+                            
+                        </div>  
+                        {renderComments()} 
+                    </div>                    
+                </div>                
+            </div>            
+     )
 };
 
-export default RedditComponent;
+export default Post;
