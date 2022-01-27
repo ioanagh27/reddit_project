@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../redditComponent/RedditComponent";
 import { fetchComments, selectError, selectIsLoading, selectSearchTerm, setSearchTerm, selectSelectSubreddit, selectPostsIncludingSearchTerm, fetchPosts } from "../redditComponent/redditSlice";
 import './mainPage.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export const MainPage = () => {
     const dispatch = useDispatch();
@@ -25,11 +27,11 @@ export const MainPage = () => {
         return getComments;
     }
 
-     if (isLoading) {
-         return (
-             <div>Is Loading</div>
-         )
-     }
+    if (isLoading) {
+        return (
+          <Skeleton/>
+        );
+      }
 
      if (error) {
          return (
@@ -62,6 +64,7 @@ export const MainPage = () => {
                     <Post 
                         key={post.id}
                         post={post}
+                        description={post.selftext}
                         onToggleComments={onToggleComments(index)}/>
                     )
                  )}

@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import './Comments.css';
 import moment from "moment";
 import ReactMarkdown from 'react-markdown';
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css';
 
 
 export const Comment = ({comment}) => {
@@ -18,7 +20,7 @@ export const Comment = ({comment}) => {
             {moment.unix(comment.created_utc).fromNow()}
           </p>
         </div>
-        <ReactMarkdown children={comment.body} />
+        <ReactMarkdown children={comment.body}/>
       </div>
     )
   }

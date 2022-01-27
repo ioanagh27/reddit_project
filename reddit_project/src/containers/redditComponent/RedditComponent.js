@@ -6,6 +6,8 @@ import {faComment} from '@fortawesome/free-solid-svg-icons';
 import { faArrowAltCircleUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowAltCircleDown } from "@fortawesome/free-solid-svg-icons";
 import {Comment} from '../comments/Comments.js';
+import Skeleton from "react-loading-skeleton";
+import ReactMarkdown from 'react-markdown';
 
 
 const Post = ({post, onToggleComments}) => {
@@ -14,7 +16,7 @@ const Post = ({post, onToggleComments}) => {
         if(post.loadingComments){
           return (
             <div>
-              <h2>Loading comments...</h2>
+              <Skeleton count={7} width={600} height={100}/>
             </div>
           )
         }
@@ -53,7 +55,10 @@ const Post = ({post, onToggleComments}) => {
                     <div className="card">              
                         <div className="title">
                             {post.title}
-                        </div>               
+                        </div>          
+                        <div>
+                        <ReactMarkdown children={post.selftext}/>
+                        </div>     
                         <div className="media"> 
                             <img src={post.url} alt=''/>                      
                         </div>              

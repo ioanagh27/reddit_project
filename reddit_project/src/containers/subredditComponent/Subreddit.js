@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import './Subreddit.css';
 import { fetchSubreddits, selectError, selectIsLoading, selectSubreddits, selectSubreddit } from "../redditComponent/redditSlice";
+import Skeleton from "react-loading-skeleton";
 
 
 export const Subreddits = () => {
     const subreddits = useSelector(selectSubreddits);
-    let isLoading = useSelector(selectIsLoading);
-    let error = useSelector(selectError);
+    const isLoading = useSelector(selectIsLoading);
+    const error = useSelector(selectError);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -16,7 +17,7 @@ export const Subreddits = () => {
 
     if(isLoading) {
         return (
-            <h2>Subreddits loading...</h2>
+            <Skeleton count={7} />
         )
     }
 
